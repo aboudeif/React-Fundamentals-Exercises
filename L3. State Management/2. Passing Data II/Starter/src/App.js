@@ -101,6 +101,17 @@ const App = () => {
         <h1 className="App-title">ReactND - Coding Practice</h1>
       </header>
       <h2>How Popular is Your Favorite Movie?</h2>
+      <ul>
+        
+          {profiles.filter((profile) =>
+             movies[profile.favoriteMovieID].id === +profile.favoriteMovieID)
+             .fill((profile) => (<li>{users[profile.userID].name}</li>))
+             .map((movie) => (<li>{movies[movie.favoriteMovieID].name}</li>)
+            )}
+          
+
+        
+      </ul>
     </div>
   );
 };
