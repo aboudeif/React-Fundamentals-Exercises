@@ -94,6 +94,14 @@ const movies = {
 };
 
 const App = () => {
+  let usersByMovie = {};
+
+  profiles.forEach(profile => {
+    const movieID = profile.favoriteMovieID;
+    usersByMovie[movieID] ? usersByMovie[movieID].push(profile.userID) : usersByMovie[movieID] = [profile.userID];
+    
+    
+  })
   return (
     <div className="App">
       <header className="App-header">
@@ -101,17 +109,22 @@ const App = () => {
         <h1 className="App-title">ReactND - Coding Practice</h1>
       </header>
       <h2>How Popular is Your Favorite Movie?</h2>
-      <ul>
+      <ol>
         
-          {profiles.filter((profile) =>
-             movies[profile.favoriteMovieID].id === +profile.favoriteMovieID)
-             .fill((profile) => (<li>{users[profile.userID].name}</li>))
-             .map((movie) => (<li>{movies[movie.favoriteMovieID].name}</li>)
-            )}
-          
-
-        
-      </ul>
+          {Object.keys(movies).map(movieID => (
+            <li key={movieID}>
+            <div>
+              <h3>{movies[movieID].name}</h3>
+              <ul>
+                {usersByMovie[movieID] ? usersByMovie[movieID].map(userID => (
+                  <li key={userID}>{users[userID].name}</li>
+                )) : <p>no one favorited this movie!</p>
+                }
+                </ul>
+            </div>
+            </li>
+          ))}
+      </ol>
     </div>
   );
 };
